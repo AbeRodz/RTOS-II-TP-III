@@ -37,8 +37,6 @@ typedef struct {
 
 /* ============================================================================================ */
 
-/* ============================================================================================ */
-
 /**
  * @brief This struct defines the priority queue
  */
@@ -54,6 +52,8 @@ typedef struct {
  * @param q This is a pointer to the priority queue
  */
 void initQueue(PriorityQueue *q);
+
+/* ============================================================================================ */
 
 /**
  * @brief This function checks if the queue is empty

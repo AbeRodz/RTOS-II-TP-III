@@ -25,7 +25,6 @@ int isQueueEmpty(PriorityQueue *q)
 
 /* ============================================================================================ */
 
-
 int isQueueFull(PriorityQueue *q) {
     return q->size == MAX_QUEUE_SIZE;
 }
@@ -36,6 +35,8 @@ int getQueueSize(PriorityQueue *q)
 {
     return q->size;
 }
+
+/* ============================================================================================ */
 
 void heapifyUp(PriorityQueue *q, int index) {
     while (index > 0) {
@@ -50,6 +51,8 @@ void heapifyUp(PriorityQueue *q, int index) {
         }
     }
 }
+
+/* ============================================================================================ */
 
 void heapifyDown(PriorityQueue *q, int index) {
     while (1) {
@@ -73,6 +76,9 @@ void heapifyDown(PriorityQueue *q, int index) {
         }
     }
 }
+
+/* ============================================================================================ */
+
 void enqueue(PriorityQueue *q, QueueItem_t item) {
     if (isQueueFull(q)) {
 
@@ -85,6 +91,7 @@ void enqueue(PriorityQueue *q, QueueItem_t item) {
     q->size++;
 }
 
+/* ============================================================================================ */
 
 QueueItem_t dequeue(PriorityQueue *q)
 {

@@ -75,7 +75,13 @@ void ui_task_init(UiTask_t *ui_task, QueueHandle_t button_state_queue, LedTask_t
  */
 void ui_task_run(void *argument);
 
+/* ============================================================================================ */
 
+/**
+ * @brief This function enqueues an item in the priority queue and gives the semaphore
+ * @param q This is a pointer to the priority queue
+ * @param item This is the item to be enqueued
+ */
 void enqueue_semaphore(PriorityQueue *q, QueueItem_t item);
 
 /* ============================================================================================ */
