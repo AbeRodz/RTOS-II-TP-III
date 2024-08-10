@@ -18,6 +18,7 @@
 
 /* ============================================================================================ */
 
+#define LED_ON_TIME 5000 // Time in milliseconds to keep the LED on
 #define LED_TASK_STACK_SIZE configMINIMAL_STACK_SIZE // Stack size for the LED task
 
 /* ============================================================================================ */

@@ -58,17 +58,17 @@ void led_task_run(void)
 				{
 					case LED_COLOR_RED:
 						led_red_set_state(payload.state);
-						vTaskDelay(pdMS_TO_TICKS(5000));
+						vTaskDelay(pdMS_TO_TICKS(LED_ON_TIME));
 						led_red_set_state(LED_CMD_OFF);
 						break;
 					case LED_COLOR_GREEN:
 						led_green_set_state(payload.state);
-						vTaskDelay(pdMS_TO_TICKS(5000));
+						vTaskDelay(pdMS_TO_TICKS(LED_ON_TIME));
 						led_green_set_state(LED_CMD_OFF);
 						break;
 					case LED_COLOR_BLUE:
 						led_blue_set_state(payload.state);
-						vTaskDelay(pdMS_TO_TICKS(5000));
+						vTaskDelay(pdMS_TO_TICKS(LED_ON_TIME));
 						led_blue_set_state(LED_CMD_OFF);
 						break;
 					default:
