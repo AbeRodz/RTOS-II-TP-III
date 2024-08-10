@@ -36,15 +36,19 @@
 #define TASK_BUTTTON_H_
 
 /********************** CPP guard ********************************************/
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /********************** inclusions *******************************************/
 
+#include <stdint.h>
+
 /********************** macros ***********************************************/
 
 /********************** typedef **********************************************/
+
 typedef enum
 {
   BUTTON_TYPE_NONE,
@@ -53,6 +57,7 @@ typedef enum
   BUTTON_TYPE_LONG,
   BUTTON_TYPE__N,
 } button_type_t;
+
 /********************** external data declaration ****************************/
 
 /********************** external functions declaration ***********************/
@@ -60,10 +65,12 @@ typedef enum
 void task_button(void* argument);
 
 /********************** End of CPP guard *************************************/
+
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* TASK_BUTTTON_H_ */
+
 /********************** end of file ******************************************/
 

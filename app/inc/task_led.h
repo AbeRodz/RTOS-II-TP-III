@@ -36,15 +36,19 @@
 #define TASK_LED_H_
 
 /********************** CPP guard ********************************************/
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /********************** inclusions *******************************************/
+
 #include "task_button.h"
+
 /********************** macros ***********************************************/
 
 /********************** typedef **********************************************/
+
 typedef enum
 {
   LED_COLOR_NONE,
@@ -57,15 +61,10 @@ typedef enum
 
 typedef struct msg_s message_t;
 
-
-
 struct msg_s {
     size_t size;
 	button_type_t button;
-
-
 };
-
 
 typedef struct {
 	button_type_t button;
@@ -79,10 +78,12 @@ typedef struct {
 void task_led(void* argument);
 
 /********************** End of CPP guard *************************************/
+
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* TASK_LED_H_ */
+
 /********************** end of file ******************************************/
 

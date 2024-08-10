@@ -1,27 +1,39 @@
-/*
- * priority_queue.c
- *
- *  Created on: Aug 7, 2024
- *      Author: rodz
+/**
+ * @file priority_queue.c
+ * @brief This files implements the priority queue functions.
+ * @author RTOSII - Grupo 5
  */
+
+/* ============================================================================================ */
 
 #include "logger.h"
 #include "priority_queue.h"
 
+/* ============================================================================================ */
 
-void initQueue(PriorityQueue *q) {
+void initQueue(PriorityQueue *q) 
+{
     q->size = 0;
 }
 
-int isQueueEmpty(PriorityQueue *q) {
+/* ============================================================================================ */
+
+int isQueueEmpty(PriorityQueue *q) 
+{
     return q->size == 0;
 }
+
+/* ============================================================================================ */
+
 
 int isQueueFull(PriorityQueue *q) {
     return q->size == MAX_QUEUE_SIZE;
 }
 
-int getQueueSize(PriorityQueue *q) {
+/* ============================================================================================ */
+
+int getQueueSize(PriorityQueue *q) 
+{
     return q->size;
 }
 
@@ -29,7 +41,7 @@ void heapifyUp(PriorityQueue *q, int index) {
     while (index > 0) {
         int parentIndex = (index - 1) / 2;
         if (q->items[index].priority > q->items[parentIndex].priority) {
-            QueueItem temp = q->items[index];
+            QueueItem_t temp = q->items[index];
             q->items[index] = q->items[parentIndex];
             q->items[parentIndex] = temp;
             index = parentIndex;
@@ -52,7 +64,7 @@ void heapifyDown(PriorityQueue *q, int index) {
             largest = rightChild;
         }
         if (largest != index) {
-            QueueItem temp = q->items[index];
+        	QueueItem_t temp = q->items[index];
             q->items[index] = q->items[largest];
             q->items[largest] = temp;
             index = largest;
@@ -61,32 +73,35 @@ void heapifyDown(PriorityQueue *q, int index) {
         }
     }
 }
-void enqueue(PriorityQueue *q, QueueItem item) {
+void enqueue(PriorityQueue *q, QueueItem_t item) {
     if (isQueueFull(q)) {
 
     	//LOGGER_INFO("queue is full...");
         return;
     }
+    // Add the item to the end of the queue and heapify up. Then increment the size.
     q->items[q->size] = item;
     heapifyUp(q, q->size);
     q->size++;
 }
 
 
-QueueItem dequeue(PriorityQueue *q)
+QueueItem_t dequeue(PriorityQueue *q)
 {
     if (isQueueEmpty(q))
     {
         // If the queue is empty, return an empty item
 
-    	QueueItem empty = { .priority = LOW, .data = (void*)-1 };
+    	QueueItem_t empty = { .priority = LOW, .data = (void*)-1 };
         return empty;
     }
     // Assign the root to the last item in the queue (highest priority)
-    QueueItem root = q->items[0];
+    QueueItem_t root = q->items[0];
     // Replace the last item and decrement the size. Then heapify down.
     q->items[0] = q->items[q->size - 1];
     q->size--;
     heapifyDown(q, 0);
     return root;
 }
+
+/* ============================================================================================ */

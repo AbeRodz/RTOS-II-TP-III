@@ -29,7 +29,10 @@
  * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
+ *
+ * @file   : logger.c
  * @author : Sebastian Bedin <sebabedin@gmail.com>
+ * @version	v1.0.0
  */
 
 /********************** inclusions *******************************************/
@@ -121,10 +124,8 @@ void task_button(void* argument)
 		message_t pmsg;
 		switch (button_type)
 		{
-
-
-		case BUTTON_TYPE_NONE:
-			break;
+			case BUTTON_TYPE_NONE:
+				break;
 
 		case BUTTON_TYPE_PULSE:
 
@@ -147,7 +148,7 @@ void task_button(void* argument)
 
 			break;
 
-		case BUTTON_TYPE_LONG:
+			case BUTTON_TYPE_LONG:
 
 
 			pmsg.size = sizeof(message_t);
@@ -157,9 +158,9 @@ void task_button(void* argument)
 
 			break;
 
-		default:
-			LOGGER_INFO("button error");
-			break;
+			default:
+				LOGGER_INFO("button error");
+				break;
 		}
 
 		vTaskDelay((TickType_t)(TASK_PERIOD_MS_ / portTICK_PERIOD_MS));
