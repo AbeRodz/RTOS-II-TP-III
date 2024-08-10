@@ -1,0 +1,8 @@
+../app/src/priority_queue.c:14:6:initQueue	16	static
+../app/src/priority_queue.c:21:5:isQueueEmpty	16	static
+../app/src/priority_queue.c:29:5:isQueueFull	16	static
+../app/src/priority_queue.c:35:5:getQueueSize	16	static
+../app/src/priority_queue.c:40:6:heapifyUp	32	static
+../app/src/priority_queue.c:54:6:heapifyDown	40	static
+../app/src/priority_queue.c:76:6:enqueue	24	static
+../app/src/priority_queue.c:89:13:dequeue	40	static
