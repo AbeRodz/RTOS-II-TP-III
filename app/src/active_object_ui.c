@@ -72,49 +72,55 @@ void ui_task_run(void *argument)
 					xSemaphoreGive(xSemaphore);
 					break;
 
-				case BUTTON_STATE_SHORT:
-					LOGGER_INFO("Button short press detected");
-					// Fill the payload with the necessary information
-					payload.color = LED_COLOR_GREEN;
-					payload.state = LED_CMD_ON;
-					payload.name = "Green LED Task";
-					payload.priority = MEDIUM;
-					// Assign the payload to the queue item
-					item.priority = payload.priority;
-					item.data = pvPortMalloc(sizeof(LedTask_t));
-					memcpy(item.data, &payload, sizeof(LedTask_t));
-					// Add the item to the priority queue
-					taskENTER_CRITICAL();
-					enqueue(&priorityQueue, item);
-					taskEXIT_CRITICAL();
-					// Give the semaphore to the scheduler
-					xSemaphoreGive(xSemaphore);
-					break;
 
-				case BUTTON_STATE_LONG:
-					LOGGER_INFO("Button long press detected");
-					// Fill the payload with the necessary information
-					payload.color = LED_COLOR_BLUE;
-					payload.state = LED_CMD_ON;
-					payload.name = "Blue LED Task";
-					payload.priority = LOW;
-					// Assign the payload to the queue item
-					item.priority = payload.priority;
-					item.data = pvPortMalloc(sizeof(LedTask_t));
-					memcpy(item.data, &payload, sizeof(LedTask_t));
-					// Add the item to the priority queue
-					taskENTER_CRITICAL();
-					enqueue(&priorityQueue, item);
-					taskEXIT_CRITICAL();
-					// Give the semaphore to the scheduler
-					xSemaphoreGive(xSemaphore);
-					break;
+				item.priority = payload.priority;
+				item.data = pvPortMalloc(sizeof(LedTask_t));
+				memcpy(item.data, &payload, sizeof(LedTask_t));
+				enqueue_semaphore(&priorityQueue, item);
 
-				default:
-					break;
+				break;
+			case BUTTON_STATE_SHORT:
+				LOGGER_INFO("Button short press detected");
+				payload.color = LED_COLOR_GREEN;
+				payload.state = LED_CMD_ON;
+				payload.name = "Green LED Task";
+				payload.priority = MEDIUM;
+
+				item.priority = payload.priority;
+				item.data = pvPortMalloc(sizeof(LedTask_t));
+				memcpy(item.data, &payload, sizeof(LedTask_t));
+				enqueue_semaphore(&priorityQueue, item);
+
+				break;
+			case BUTTON_STATE_LONG:
+				LOGGER_INFO("Button long press detected");
+				payload.color = LED_COLOR_BLUE;
+				payload.state = LED_CMD_ON;
+				payload.name = "Blue LED Task";
+				payload.priority = LOW;
+
+				item.priority = payload.priority;
+				item.data = pvPortMalloc(sizeof(LedTask_t));
+				memcpy(item.data, &payload, sizeof(LedTask_t));
+
+				enqueue_semaphore(&priorityQueue, item);
+
+
+				break;
+			default:
+				break;
 			}
+
 		}
 	}
+}
+
+
+void enqueue_semaphore(PriorityQueue *q, QueueItem_t item){
+	taskENTER_CRITICAL();
+	enqueue(q, item);
+	taskEXIT_CRITICAL();
+	xSemaphoreGive(xSemaphore);
 }
 
 /* ============================================================================================ */

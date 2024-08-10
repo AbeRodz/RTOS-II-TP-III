@@ -54,20 +54,10 @@ extern "C" {
 /********************** typedef **********************************************/
 
 /********************** external data declaration ****************************/
-/* UI data */
-//extern QueueHandle_t ui_event_queue;
-//extern UiTask_t ui_task;
 
 extern SemaphoreHandle_t xSemaphore;
 extern PriorityQueue priorityQueue;
 
-//extern QueueHandle_t led_r_event_queue;
-//extern QueueHandle_t led_g_event_queue;
-//extern QueueHandle_t led_b_event_queue;
-
-//extern LedTask_t red_task;
-//extern LedTask_t green_task;
-//extern LedTask_t blue_task;
 /********************** external functions declaration ***********************/
 void app_init(void);
 

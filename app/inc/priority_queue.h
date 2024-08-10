@@ -16,7 +16,7 @@
 
 /* ============================================================================================ */
 
-#define MAX_HEAP_SIZE 10
+#define MAX_QUEUE_SIZE 10
 
 /**
  * @brief This enum defines the priority levels 
@@ -32,8 +32,10 @@ typedef enum {
  */
 typedef struct {
     Priority priority;
-    void* data; // Replace with any data type as needed
+    void* data;
 }QueueItem_t;
+
+/* ============================================================================================ */
 
 /* ============================================================================================ */
 
@@ -41,7 +43,7 @@ typedef struct {
  * @brief This struct defines the priority queue
  */
 typedef struct {
-    QueueItem_t items[MAX_HEAP_SIZE];
+    QueueItem_t items[MAX_QUEUE_SIZE];
     int size;
 } PriorityQueue;
 

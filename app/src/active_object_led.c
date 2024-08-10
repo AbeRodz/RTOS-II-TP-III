@@ -20,6 +20,7 @@
 #include "task_button.h"
 #include "priority_queue.h"
 
+
 /* ============================================================================================ */
 
 void led_task_run(void)
@@ -30,29 +31,29 @@ void led_task_run(void)
 	/* Run the LED task */
 	while (true)
 	{
-		/* Wait for the semaphore to be available */
-		if (xSemaphoreTake(xSemaphore, portMAX_DELAY) == pdPASS) 
-		{
-			/* Process the item from the priority queue */
+		if (xSemaphoreTake(xSemaphore, 0) == pdPASS) {
+			// Process the item from the priority queue
 
 			// Get the queue size
 			taskENTER_CRITICAL();
 			int queueSize = getQueueSize(&priorityQueue);
 			taskEXIT_CRITICAL();
+			LOGGER_INFO("current queue size: %d", queueSize);
 
-			// Process the item from the priority queue
+
 			taskENTER_CRITICAL();
-			if (!isQueueEmpty(&priorityQueue)) 
-			{
-				// If queue is not empty, dequeue the item
+			if (!isQueueEmpty(&priorityQueue)) {
+
 				item = dequeue(&priorityQueue);
 				memcpy(&payload, item.data, sizeof(LedTask_t));
 				vPortFree(item.data); // Free the allocated memory
 			}
 			taskEXIT_CRITICAL();
 
+
 			// Process the item. Turn on the corresp. LED for 5 seconds and then turn it off.
 			if (payload.state == LED_CMD_ON)
+				LOGGER_INFO("processing item with priority level: %d ", payload.priority);
 			{
 				switch (payload.color) 
 				{
@@ -73,6 +74,7 @@ void led_task_run(void)
 						break;
 					default:
 						break;
+
 				}
 			}
 		}

@@ -127,30 +127,36 @@ void task_button(void* argument)
 			case BUTTON_TYPE_NONE:
 				break;
 
-			case BUTTON_TYPE_PULSE:
-				LOGGER_INFO("Memoria alocada: %d", sizeof(message_t));
-				pmsg.size = sizeof(message_t);
-				pmsg.button = button_type;
-				LOGGER_INFO("button pulse");
-				ui_send_message(&pmsg);
-				break;
+		case BUTTON_TYPE_PULSE:
 
-			case BUTTON_TYPE_SHORT:
-				LOGGER_INFO("Memoria alocada: %d", sizeof(message_t));
-				pmsg.size = sizeof(message_t);
-				pmsg.button = button_type;
-				LOGGER_INFO("button short");
-				ui_send_message(&pmsg);
-				break;
+			pmsg.size = sizeof(message_t);
+			pmsg.button = button_type;
+
+			LOGGER_INFO("button pulse");
+			ui_send_message(&pmsg);
+
+			break;
+
+		case BUTTON_TYPE_SHORT:
+
+
+			pmsg.size = sizeof(message_t);
+			pmsg.button = button_type;
+
+			LOGGER_INFO("button short");
+			ui_send_message(&pmsg);
+
+			break;
 
 			case BUTTON_TYPE_LONG:
 
-				LOGGER_INFO("Memoria alocada: %d", sizeof(message_t));
-				pmsg.size = sizeof(message_t);
-				pmsg.button = button_type;
-				LOGGER_INFO("button long");
-				ui_send_message(&pmsg);
-				break;
+
+			pmsg.size = sizeof(message_t);
+			pmsg.button = button_type;
+			LOGGER_INFO("button long");
+			ui_send_message(&pmsg);
+
+			break;
 
 			default:
 				LOGGER_INFO("button error");

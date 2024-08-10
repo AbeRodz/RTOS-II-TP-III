@@ -65,11 +65,10 @@ void app_init(void)
     create_led_task("LED_AO");
     initQueue(&priorityQueue);
 
-    // Create the semaphore
-    xSemaphore = xSemaphoreCreateBinary();
-    if (xSemaphore == NULL) 
-    {
-        // Handle error
+    xSemaphore = xSemaphoreCreateCounting(MAX_QUEUE_SIZE, 0);
+
+    if (xSemaphore == NULL) {
+
         while (1);
     }
     
