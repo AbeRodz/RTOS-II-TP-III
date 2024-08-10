@@ -116,7 +116,7 @@ void ui_task_run(void *argument)
 }
 
 
-void enqueue_semaphore(PriorityQueue *q, QueueItem item){
+void enqueue_semaphore(PriorityQueue *q, QueueItem_t item){
 	taskENTER_CRITICAL();
 	enqueue(q, item);
 	taskEXIT_CRITICAL();

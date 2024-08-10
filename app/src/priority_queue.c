@@ -25,9 +25,7 @@ int isQueueEmpty(PriorityQueue *q)
 
 /* ============================================================================================ */
 
-int isQueueFull(PriorityQueue *q) 
-{
-    return q->size == MAX_HEAP_SIZE;
+
 int isQueueFull(PriorityQueue *q) {
     return q->size == MAX_QUEUE_SIZE;
 }
@@ -43,7 +41,7 @@ void heapifyUp(PriorityQueue *q, int index) {
     while (index > 0) {
         int parentIndex = (index - 1) / 2;
         if (q->items[index].priority > q->items[parentIndex].priority) {
-            QueueItem temp = q->items[index];
+            QueueItem_t temp = q->items[index];
             q->items[index] = q->items[parentIndex];
             q->items[parentIndex] = temp;
             index = parentIndex;
@@ -66,7 +64,7 @@ void heapifyDown(PriorityQueue *q, int index) {
             largest = rightChild;
         }
         if (largest != index) {
-            QueueItem temp = q->items[index];
+        	QueueItem_t temp = q->items[index];
             q->items[index] = q->items[largest];
             q->items[largest] = temp;
             index = largest;
@@ -75,7 +73,7 @@ void heapifyDown(PriorityQueue *q, int index) {
         }
     }
 }
-void enqueue(PriorityQueue *q, QueueItem item) {
+void enqueue(PriorityQueue *q, QueueItem_t item) {
     if (isQueueFull(q)) {
 
     	//LOGGER_INFO("queue is full...");
@@ -88,17 +86,17 @@ void enqueue(PriorityQueue *q, QueueItem item) {
 }
 
 
-QueueItem dequeue(PriorityQueue *q)
+QueueItem_t dequeue(PriorityQueue *q)
 {
     if (isQueueEmpty(q))
     {
         // If the queue is empty, return an empty item
 
-    	QueueItem empty = { .priority = LOW, .data = (void*)-1 };
+    	QueueItem_t empty = { .priority = LOW, .data = (void*)-1 };
         return empty;
     }
     // Assign the root to the last item in the queue (highest priority)
-    QueueItem root = q->items[0];
+    QueueItem_t root = q->items[0];
     // Replace the last item and decrement the size. Then heapify down.
     q->items[0] = q->items[q->size - 1];
     q->size--;
