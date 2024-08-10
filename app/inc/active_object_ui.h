@@ -101,6 +101,9 @@ void ui_task_init(UiTask_t *ui_task, QueueHandle_t button_state_queue, LedTask_t
  */
 void ui_task_run(void *argument);
 
+
+void enqueue_semaphore(PriorityQueue *q, QueueItem item);
+
 #endif // ACTIVE_OBJECT_UI_H
 
 /* ============================================================================================ */

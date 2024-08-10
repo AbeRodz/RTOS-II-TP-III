@@ -66,9 +66,11 @@ void app_init(void)
     BaseType_t status;
     create_led_task("LED_AO");
     initQueue(&priorityQueue);
-    xSemaphore = xSemaphoreCreateBinary();
+
+    xSemaphore = xSemaphoreCreateCounting(MAX_QUEUE_SIZE, 0);
+
     if (xSemaphore == NULL) {
-        // Handle error
+
         while (1);
     }
     status = xTaskCreate(task_button,

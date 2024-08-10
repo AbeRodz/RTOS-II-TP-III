@@ -48,72 +48,7 @@
 #include "task_led.h"
 #include "task_button.h"
 #include "priority_queue.h"
-/*
-#define MAX_BATCH_SIZE 5
 
-
-
-
-
-
-typedef struct {
-    QueueItem items[MAX_BATCH_SIZE];
-    int count;
-} BatchBuffer;
-
-void led_task_run(void )
-{
-    BatchBuffer batch;
-    LedTask_t payload;
-
-    while (true)
-    {
-        // Initialize batch buffer
-        batch.count = 0;
-
-        // Wait for and collect up to 5 items
-        while (batch.count < MAX_BATCH_SIZE) {
-            if (xSemaphoreTake(xSemaphore, portMAX_DELAY) == pdPASS) {
-                taskENTER_CRITICAL();
-                if (!isQueueEmpty(&priorityQueue)) {
-                    batch.items[batch.count++] = dequeue(&priorityQueue);
-                }
-                taskEXIT_CRITICAL();
-            }
-        }
-
-        // Process the collected items
-        for (int i = 0; i < batch.count; i++) {
-            // Copy the item data to payload
-            memcpy(&payload, batch.items[i].data, sizeof(LedTask_t));
-            vPortFree(batch.items[i].data); // Free the allocated memory
-
-            // Process the payload
-            if (payload.state == LED_CMD_ON) {
-                switch (payload.color) {
-                    case LED_COLOR_RED:
-                        led_red_set_state(payload.state);
-                        vTaskDelay(pdMS_TO_TICKS(1000));
-                        led_red_set_state(LED_CMD_OFF);
-                        break;
-                    case LED_COLOR_GREEN:
-                        led_green_set_state(payload.state);
-                        vTaskDelay(pdMS_TO_TICKS(1000));
-                        led_green_set_state(LED_CMD_OFF);
-                        break;
-                    case LED_COLOR_BLUE:
-                        led_blue_set_state(payload.state);
-                        vTaskDelay(pdMS_TO_TICKS(1000));
-                        led_blue_set_state(LED_CMD_OFF);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-    }
-}
-*/
 /* ============================================================================================ */
 
 
@@ -124,52 +59,48 @@ void led_task_run(void)
 
 	while (true)
 	{
-		if (xSemaphoreTake(xSemaphore, portMAX_DELAY) == pdPASS) {
+		if (xSemaphoreTake(xSemaphore, 0) == pdPASS) {
 			// Process the item from the priority queue
 
 			taskENTER_CRITICAL();
 			int queueSize = getQueueSize(&priorityQueue);
 			taskEXIT_CRITICAL();
-
-			if (queueSize > 5) {
-				// Process the item from the priority queue
-				taskENTER_CRITICAL();
-				if (!isQueueEmpty(&priorityQueue)) {
-
-					item = dequeue(&priorityQueue);
-					memcpy(&payload, item.data, sizeof(LedTask_t));
-					vPortFree(item.data); // Free the allocated memory
-				}
-				taskEXIT_CRITICAL();
+			LOGGER_INFO("current queue size: %d", queueSize);
 
 
+			taskENTER_CRITICAL();
+			if (!isQueueEmpty(&priorityQueue)) {
 
+				item = dequeue(&priorityQueue);
+				memcpy(&payload, item.data, sizeof(LedTask_t));
+				vPortFree(item.data); // Free the allocated memory
+			}
+			taskEXIT_CRITICAL();
 
-				if (payload.state == LED_CMD_ON)
-				{
+			if (payload.state == LED_CMD_ON)
+			LOGGER_INFO("processing item with priority level: %d ", payload.priority);
+			{
 
-					switch (payload.color) {
-					case LED_COLOR_RED:
-						led_red_set_state(payload.state);
-						vTaskDelay(pdMS_TO_TICKS(1000));
-						led_red_set_state(LED_CMD_OFF);
-						break;
-					case LED_COLOR_GREEN:
-						led_green_set_state(payload.state);
-						vTaskDelay(pdMS_TO_TICKS(1000));
-						led_green_set_state(LED_CMD_OFF);
-						break;
-					case LED_COLOR_BLUE:
-						led_blue_set_state(payload.state);
-						vTaskDelay(pdMS_TO_TICKS(1000));
-						led_blue_set_state(LED_CMD_OFF);
-						break;
-					default:
-						break;
-					}
+				switch (payload.color) {
+				case LED_COLOR_RED:
+					led_red_set_state(payload.state);
+					vTaskDelay(pdMS_TO_TICKS(5000));
+					led_red_set_state(LED_CMD_OFF);
+					break;
+				case LED_COLOR_GREEN:
+					led_green_set_state(payload.state);
+					vTaskDelay(pdMS_TO_TICKS(5000));
+					led_green_set_state(LED_CMD_OFF);
+					break;
+				case LED_COLOR_BLUE:
+					led_blue_set_state(payload.state);
+					vTaskDelay(pdMS_TO_TICKS(5000));
+					led_blue_set_state(LED_CMD_OFF);
+					break;
+				default:
+					break;
 				}
 			}
-
 		}
 	}
 

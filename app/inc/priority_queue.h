@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_HEAP_SIZE 10
+#define MAX_QUEUE_SIZE 10
 
 typedef enum {
     LOW,
@@ -22,11 +22,11 @@ typedef enum {
 
 typedef struct {
     Priority priority;
-    void* data; // Replace with any data type as needed
+    void* data;
 } QueueItem;
 
 typedef struct {
-    QueueItem items[MAX_HEAP_SIZE];
+    QueueItem items[MAX_QUEUE_SIZE];
     int size;
 } PriorityQueue;
 

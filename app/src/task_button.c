@@ -128,8 +128,6 @@ void task_button(void* argument)
 
 		case BUTTON_TYPE_PULSE:
 
-			LOGGER_INFO("Memoria alocada: %d", sizeof(message_t));
-
 			pmsg.size = sizeof(message_t);
 			pmsg.button = button_type;
 
@@ -140,7 +138,7 @@ void task_button(void* argument)
 
 		case BUTTON_TYPE_SHORT:
 
-			LOGGER_INFO("Memoria alocada: %d", sizeof(message_t));
+
 			pmsg.size = sizeof(message_t);
 			pmsg.button = button_type;
 
@@ -151,7 +149,7 @@ void task_button(void* argument)
 
 		case BUTTON_TYPE_LONG:
 
-			LOGGER_INFO("Memoria alocada: %d", sizeof(message_t));
+
 			pmsg.size = sizeof(message_t);
 			pmsg.button = button_type;
 			LOGGER_INFO("button long");
