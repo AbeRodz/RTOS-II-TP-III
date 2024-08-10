@@ -1,6 +1,7 @@
 /**
  * @file active_object_ui.c
  * @brief This file implements the UI active object.
+ * @author RTOSII - Grupo 5
  */
 
 /* ============================================================================================ */

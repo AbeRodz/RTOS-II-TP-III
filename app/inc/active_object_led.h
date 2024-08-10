@@ -1,7 +1,7 @@
 /**
  * @file active_object_led.h
  * @brief This file declares the LED active object.
- * @date 2024-08-10
+ * @author RTOSII - Grupo 5
  */
 
 /* ============================================================================================ */

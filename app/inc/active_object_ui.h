@@ -1,6 +1,7 @@
 /**
  * @file active_object_ui.h
  * @brief This file declares the UI active object.
+ * @author RTOSII - Grupo 5
  */
 
 /* ============================================================================================ */

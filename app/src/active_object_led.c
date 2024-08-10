@@ -1,6 +1,7 @@
 /**
  * @file active_object_led.c
  * @brief This file implements the LED active object.
+ * @author RTOSII - Grupo 5
  */
 
 /* ============================================================================================ */

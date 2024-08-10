@@ -1,7 +1,7 @@
 /**
  * @file priority_queue.h
  * @brief This files declares the priority queue functions.
- * @date 2024-08-10
+ * @author RTOSII - Grupo 5
  */
 
 /* ============================================================================================ */
