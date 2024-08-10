@@ -1,0 +1,5 @@
+../app/src/active_object_led.c:26:6:led_task_run	8
+../app/src/active_object_led.c:86:6:led_red_set_state	1
+../app/src/active_object_led.c:93:6:led_green_set_state	1
+../app/src/active_object_led.c:100:6:led_blue_set_state	1
+../app/src/active_object_led.c:107:6:create_led_task	2
