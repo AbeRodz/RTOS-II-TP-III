@@ -31,7 +31,6 @@ typedef struct
 {
     QueueHandle_t button_state_queue; // Queue to receive button states
     LedTask_t *led_task; // LED task
-
 } UiTask_t;
 
 /* UI events queue */
@@ -72,7 +71,7 @@ void ui_task_init(UiTask_t *ui_task, QueueHandle_t button_state_queue, LedTask_t
 
 /**
  * @brief This function runs the UI task
- * @param ui_task This is a pointer to the UI task
+ * @param argument This is a pointer to the UI task
  */
 void ui_task_run(void *argument);
 

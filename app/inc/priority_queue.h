@@ -33,7 +33,7 @@ typedef enum {
 typedef struct {
     Priority priority;
     void* data; // Replace with any data type as needed
-} QueueItem;
+}QueueItem_t;
 
 /* ============================================================================================ */
 
@@ -41,7 +41,7 @@ typedef struct {
  * @brief This struct defines the priority queue
  */
 typedef struct {
-    QueueItem items[MAX_HEAP_SIZE];
+    QueueItem_t items[MAX_HEAP_SIZE];
     int size;
 } PriorityQueue;
 
@@ -103,7 +103,7 @@ void heapifyDown(PriorityQueue *q, int index);
  * @param q This is a pointer to the priority queue
  * @param item This is the item to enqueue
  */
-void enqueue(PriorityQueue *q, QueueItem item);
+void enqueue(PriorityQueue *q, QueueItem_t item);
 
 /* ============================================================================================ */
 
@@ -112,7 +112,7 @@ void enqueue(PriorityQueue *q, QueueItem item);
  * @param q This is a pointer to the priority queue
  * @return The dequeued item
  */
-QueueItem dequeue(PriorityQueue *q);
+QueueItem_t dequeue(PriorityQueue *q);
 
 /* ============================================================================================ */
 

@@ -18,25 +18,24 @@
 
 /* ============================================================================================ */
 
-#define MAX_LED_TASKS 3
-#define LED_TASK_STACK_SIZE configMINIMAL_STACK_SIZE
+#define LED_TASK_STACK_SIZE configMINIMAL_STACK_SIZE // Stack size for the LED task
 
 /* ============================================================================================ */
 
 /* This enum defines the possible commands for the LED */
 typedef enum
 {
-    LED_CMD_OFF,
+    LED_CMD_OFF, 
     LED_CMD_ON
 } led_cmd_t;
 
 /* This struct defines the LED task */
 typedef struct
 {
-	led_color_t color;
-	led_cmd_t state ;
-	char* name;
-	 Priority priority;
+	led_color_t color; // Color of the LED
+	led_cmd_t state ;  // State of the LED
+	char* name; 	   // Name of the task
+	Priority priority; // Priority of the task
 } LedTask_t;
 
 /* LED events queues */

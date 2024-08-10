@@ -42,69 +42,78 @@ void ui_task_run(void *argument)
 	UiTask_t* ui_task = (UiTask_t*)argument;
 	message_t message;
 	LedTask_t payload;
-	QueueItem item;
+	QueueItem_t item;
+
+	/* Run the UI task */
 	while (true)
 	{
 		/* Wait for a button state change */
 		if (xQueueReceive(ui_task->button_state_queue, &message, portMAX_DELAY) == pdPASS)
 		{
-
+			/* Process the button state according to its message assigned on task_button() */
 			switch (message.button)
 			{
-			case BUTTON_STATE_PULSE:
-				LOGGER_INFO("Button pulse detected");
-				payload.color = LED_COLOR_RED;
-				payload.state = LED_CMD_ON;
-				payload.name = "RED LED Task";
-				payload.priority = HIGH;
+				case BUTTON_STATE_PULSE:
+					LOGGER_INFO("Button pulse detected");
+					// Fill the payload with the necessary information
+					payload.color = LED_COLOR_RED;
+					payload.state = LED_CMD_ON;
+					payload.name = "RED LED Task";
+					payload.priority = HIGH;
+					// Assign the payload to the queue item
+					item.priority = payload.priority;
+					item.data = pvPortMalloc(sizeof(LedTask_t));
+					memcpy(item.data, &payload, sizeof(LedTask_t));
+					// Add the item to the priority queue
+					taskENTER_CRITICAL();
+					enqueue(&priorityQueue, item);
+					taskEXIT_CRITICAL();
+					// Give the semaphore to the scheduler
+					xSemaphoreGive(xSemaphore);
+					break;
 
-				//create_led_task(payload);
-				item.priority = payload.priority;
-				item.data = pvPortMalloc(sizeof(LedTask_t));
-				memcpy(item.data, &payload, sizeof(LedTask_t));
-				taskENTER_CRITICAL();
-				enqueue(&priorityQueue, item);
-				taskEXIT_CRITICAL();
-				xSemaphoreGive(xSemaphore);
+				case BUTTON_STATE_SHORT:
+					LOGGER_INFO("Button short press detected");
+					// Fill the payload with the necessary information
+					payload.color = LED_COLOR_GREEN;
+					payload.state = LED_CMD_ON;
+					payload.name = "Green LED Task";
+					payload.priority = MEDIUM;
+					// Assign the payload to the queue item
+					item.priority = payload.priority;
+					item.data = pvPortMalloc(sizeof(LedTask_t));
+					memcpy(item.data, &payload, sizeof(LedTask_t));
+					// Add the item to the priority queue
+					taskENTER_CRITICAL();
+					enqueue(&priorityQueue, item);
+					taskEXIT_CRITICAL();
+					// Give the semaphore to the scheduler
+					xSemaphoreGive(xSemaphore);
+					break;
 
-				break;
-			case BUTTON_STATE_SHORT:
-				LOGGER_INFO("Button short press detected");
-				payload.color = LED_COLOR_GREEN;
-				payload.state = LED_CMD_ON;
-				payload.name = "Green LED Task";
-				payload.priority = MEDIUM;
-				//create_led_task(payload);
-				item.priority = payload.priority;
-				item.data = pvPortMalloc(sizeof(LedTask_t));
-				memcpy(item.data, &payload, sizeof(LedTask_t));
-				taskENTER_CRITICAL();
-				enqueue(&priorityQueue, item);
-				taskEXIT_CRITICAL();
-				xSemaphoreGive(xSemaphore);
+				case BUTTON_STATE_LONG:
+					LOGGER_INFO("Button long press detected");
+					// Fill the payload with the necessary information
+					payload.color = LED_COLOR_BLUE;
+					payload.state = LED_CMD_ON;
+					payload.name = "Blue LED Task";
+					payload.priority = LOW;
+					// Assign the payload to the queue item
+					item.priority = payload.priority;
+					item.data = pvPortMalloc(sizeof(LedTask_t));
+					memcpy(item.data, &payload, sizeof(LedTask_t));
+					// Add the item to the priority queue
+					taskENTER_CRITICAL();
+					enqueue(&priorityQueue, item);
+					taskEXIT_CRITICAL();
+					// Give the semaphore to the scheduler
+					xSemaphoreGive(xSemaphore);
+					break;
 
-				break;
-			case BUTTON_STATE_LONG:
-				LOGGER_INFO("Button long press detected");
-				payload.color = LED_COLOR_BLUE;
-				payload.state = LED_CMD_ON;
-				payload.name = "Blue LED Task";
-				payload.priority = LOW;
-				//create_led_task(payload);
-				item.priority = payload.priority;
-				item.data = pvPortMalloc(sizeof(LedTask_t));
-				memcpy(item.data, &payload, sizeof(LedTask_t));
-				taskENTER_CRITICAL();
-				enqueue(&priorityQueue, item);
-				taskEXIT_CRITICAL();
-				xSemaphoreGive(xSemaphore);
-
-				break;
-			default:
-				break;
+				default:
+					break;
 			}
 		}
-
 	}
 }
 

@@ -57,16 +57,23 @@ void app_init(void)
 {
     /* Create button task */
     ui_task.led_task = &led_task;
-
+    /* Create UI task */
     ui_task_create(&ui_task);
+    /* Create LED task */
     BaseType_t status;
+    // Create the LED tasks
     create_led_task("LED_AO");
     initQueue(&priorityQueue);
+
+    // Create the semaphore
     xSemaphore = xSemaphoreCreateBinary();
-    if (xSemaphore == NULL) {
+    if (xSemaphore == NULL) 
+    {
         // Handle error
         while (1);
     }
+    
+    /* Create button task */
     status = xTaskCreate(task_button,
     					"Button Task",
 						configMINIMAL_STACK_SIZE,
@@ -75,7 +82,7 @@ void app_init(void)
 						NULL);
 
     configASSERT(status == pdPASS);
-	LOGGER_INFO("app init");
+	LOGGER_INFO("App initialized...");
 	cycle_counter_init();
 }
 
