@@ -45,11 +45,9 @@
 
 /********************** internal data definition *****************************/
 
-
 LedTask_t led_task;
 UiTask_t ui_task;
 SemaphoreHandle_t xSemaphore;
-
 
 /********************** external data declaration *****************************/
 
@@ -57,13 +55,13 @@ SemaphoreHandle_t xSemaphore;
 
 void app_init(void)
 {
-
-
     /* Create button task */
     ui_task.led_task = &led_task;
-
+    /* Create UI task */
     ui_task_create(&ui_task);
+    /* Create LED task */
     BaseType_t status;
+    // Create the LED tasks
     create_led_task("LED_AO");
     initQueue(&priorityQueue);
 
@@ -73,6 +71,8 @@ void app_init(void)
 
         while (1);
     }
+    
+    /* Create button task */
     status = xTaskCreate(task_button,
     					"Button Task",
 						configMINIMAL_STACK_SIZE,
@@ -81,10 +81,7 @@ void app_init(void)
 						NULL);
 
     configASSERT(status == pdPASS);
-
-
-
-	LOGGER_INFO("app init");
+	LOGGER_INFO("App initialized...");
 	cycle_counter_init();
 }
 

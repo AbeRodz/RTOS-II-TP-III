@@ -1,27 +1,41 @@
-/*
- * priority_queue.c
- *
- *  Created on: Aug 7, 2024
- *      Author: rodz
+/**
+ * @file priority_queue.c
+ * @brief This files implements the priority queue functions.
+ * @author RTOSII - Grupo 5
  */
+
+/* ============================================================================================ */
 
 #include "logger.h"
 #include "priority_queue.h"
 
+/* ============================================================================================ */
 
-void initQueue(PriorityQueue *q) {
+void initQueue(PriorityQueue *q) 
+{
     q->size = 0;
 }
 
-int isQueueEmpty(PriorityQueue *q) {
+/* ============================================================================================ */
+
+int isQueueEmpty(PriorityQueue *q) 
+{
     return q->size == 0;
 }
 
+/* ============================================================================================ */
+
+int isQueueFull(PriorityQueue *q) 
+{
+    return q->size == MAX_HEAP_SIZE;
 int isQueueFull(PriorityQueue *q) {
     return q->size == MAX_QUEUE_SIZE;
 }
 
-int getQueueSize(PriorityQueue *q) {
+/* ============================================================================================ */
+
+int getQueueSize(PriorityQueue *q) 
+{
     return q->size;
 }
 
@@ -67,6 +81,7 @@ void enqueue(PriorityQueue *q, QueueItem item) {
     	//LOGGER_INFO("queue is full...");
         return;
     }
+    // Add the item to the end of the queue and heapify up. Then increment the size.
     q->items[q->size] = item;
     heapifyUp(q, q->size);
     q->size++;
@@ -90,3 +105,5 @@ QueueItem dequeue(PriorityQueue *q)
     heapifyDown(q, 0);
     return root;
 }
+
+/* ============================================================================================ */
