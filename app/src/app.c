@@ -57,16 +57,21 @@ void app_init(void)
 {
     /* Create button task */
     ui_task.led_task = &led_task;
+
     /* Create UI task */
     ui_task_create(&ui_task);
+
     /* Create LED task */
     BaseType_t status;
-    // Create the LED tasks
+
+    /* Create the LED tasks */
     create_led_task("LED_AO");
+
+    /* Initialize the priority queue */
     initQueue(&priorityQueue);
 
+    /* Create the counting semaphore */
     xSemaphore = xSemaphoreCreateCounting(MAX_QUEUE_SIZE, 0);
-
     if (xSemaphore == NULL) {
 
         while (1);
