@@ -1,0 +1,5 @@
+../app/src/active_object_ui.c:32:6:ui_task_init	1
+../app/src/active_object_ui.c:40:6:ui_task_run	6
+../app/src/active_object_ui.c:119:6:enqueue_semaphore	1
+../app/src/active_object_ui.c:128:6:ui_send_message	1
+../app/src/active_object_ui.c:135:6:ui_task_create	2
