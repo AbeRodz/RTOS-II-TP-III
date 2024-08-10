@@ -45,11 +45,9 @@
 
 /********************** internal data definition *****************************/
 
-
 LedTask_t led_task;
 UiTask_t ui_task;
 SemaphoreHandle_t xSemaphore;
-
 
 /********************** external data declaration *****************************/
 
@@ -57,8 +55,6 @@ SemaphoreHandle_t xSemaphore;
 
 void app_init(void)
 {
-
-
     /* Create button task */
     ui_task.led_task = &led_task;
 
@@ -79,9 +75,6 @@ void app_init(void)
 						NULL);
 
     configASSERT(status == pdPASS);
-
-
-
 	LOGGER_INFO("app init");
 	cycle_counter_init();
 }

@@ -29,7 +29,10 @@
  * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
+ *
+ * @file   : logger.c
  * @author : Sebastian Bedin <sebabedin@gmail.com>
+ * @version	v1.0.0
  */
 
 /********************** inclusions *******************************************/
